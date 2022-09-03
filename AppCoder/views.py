@@ -1,29 +1,27 @@
 from django.shortcuts import render
 from .models import Familia
 from django.http  import  HttpResponse
-from django.template  import  Template,Context
+from django.template  import  Template,Context,loader
 import datetime
 
-def Familia(request):
-    carlos=Familia(nombre="Carlos", apellido="Fernandez",edad=50,nacimiento=2022-edad)
-    maria=Familia(nombre="Maria", apellido="Ayala",edad=45,nacimiento=2022-edad)
-    diego=Familia(nombre="Diego", apellido="Fernandez",edad=50,nacimiento=2022-edad)
+def familiares(request):
+    carlos=Familia(nombre="Carlos", apellido="Fernandez",edad=50,fecha="1972-02-03")
+    maria=Familia(nombre="Maria", apellido="Ayala",edad=45,fecha="1977-02-04")
+    diego=Familia(nombre="Diego", apellido="Fernandez",edad=20,fecha="2002-10-05")
     carlos.save()
     maria.save()
     diego.save()
-    
-    texto=f"Nombre {carlos.nombre}   apellido {carlos.apellido}     edad {carlos.edad}     fecha{carlos.nacimiento}  "
-    texto2=f"Nombre {maria.nombre}   apellido {maria.apellido}     edad {maria.edad}     fecha{maria.nacimiento}  "
-    texto3=f"Nombre {diego.nombre}   apellido {diego.apellido}     edad {diego.edad}     fecha{diego.nacimiento}  "
-    
-    return HttpResponse(texto,texto2,texto3)
 
+    
+    texto= f"NOMBRE:  {carlos.nombre}  APELLIDO: {carlos.apellido}  EDAD: {carlos.edad}  FECHA: {carlos.fecha}      NOMBRE:  {maria.nombre}  APELLIDO: {maria.apellido}  EDAD: {maria.edad}  FECHA: {maria.fecha}    NOMBRE:  {diego.nombre}  APELLIDO: {diego.apellido}  EDAD: {diego.edad}  FECHA: {diego.fecha} "
 
-def plantillahtml(request):
-    archivo=open("C:/Users/Usuario/Desktop/entrega/proyecto/plantillas/template.html")
-    contenido=archivo.read()
-    archivo.close()
-    plantilla=Template(contexto)
+ 
+    return HttpResponse(texto)
+
+def probandotemplate(request):
+    html=open("C:/Users/Usuario/Desktop/entrega/proyecto/proyecto/plantillas/template.html")
+    plantilla=Template(html.read())
+    html.close()
     contexto=Context()
     documento=plantilla.render(contexto)
-    
+    return HttpResponse(documento)
